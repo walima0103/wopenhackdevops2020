@@ -3,8 +3,11 @@ name: apis-trips-ci
 on:
   push:
     branches: [ master ]
+    paths: apis/trips/**
+    
   pull_request:
     branches: [ master ]
+    paths: apis/trips/**
 
 jobs:
   apis-trips-ci-build:
