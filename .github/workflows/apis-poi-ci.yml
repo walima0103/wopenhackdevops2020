@@ -5,11 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-    paths:
-      - 'apis/poi/*'  
 
 jobs:
-  build:
+  apis-poi-ci-build:
 
     runs-on: ubuntu-latest
 
