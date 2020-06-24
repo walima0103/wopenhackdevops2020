@@ -17,10 +17,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-    - name: Install dependencies
+    - name: Install dependencies Web
       run: dotnet restore apis/poi/web/*.csproj
     - name: Build Web
       run: dotnet build --configuration Release --no-restore apis/poi/web/*.csproj
+    - name: Install dependencies UnitTests
+      run: dotnet restore apis/poi/tests/UnitTests/*.csproj
     - name: Build UnitTests
       run: dotnet build --configuration Release --no-restore apis/poi/tests/UnitTests/*.csproj
     - name: Test
