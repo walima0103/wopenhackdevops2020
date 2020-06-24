@@ -1,5 +1,6 @@
 
 # POI Service
+![apis-poi-ci](https://github.com/walima0103/wopenhackdevops2020/workflows/apis-poi-ci/badge.svg)
 
 ## Overview
 
