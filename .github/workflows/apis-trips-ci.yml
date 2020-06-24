@@ -9,8 +9,13 @@ on:
 jobs:
   apis-trips-ci-build:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        shell: bash
+        working-directory: apis/trips
+        
     steps:
-
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
@@ -32,4 +37,4 @@ jobs:
       run: go build -v .
 
     - name: Test
-      run: go test -v .
+      run: go test -v ./tests
