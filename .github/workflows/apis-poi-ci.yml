@@ -19,7 +19,9 @@ jobs:
       uses: actions/setup-dotnet@v1
     - name: Install dependencies
       run: dotnet restore apis/poi/web/*.csproj
-    - name: Build
+    - name: Build Web
       run: dotnet build --configuration Release --no-restore apis/poi/web/*.csproj
+    - name: Build UnitTests
+      run: dotnet build --configuration Release --no-restore apis/poi/tests/UnitTests/*.csproj
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal apis/poi/tests/UnitTests/
