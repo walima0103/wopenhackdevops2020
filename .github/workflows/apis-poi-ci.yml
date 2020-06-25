@@ -59,7 +59,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Docker login
-        run: docker login -u ${{ secrets.ACR_USER }} -p fXz9KhjAMHvAEBSJjja6IIP3y1w+JOz5 ${{ env.registry }}
+        run: docker login -u ${{ secrets.ACR_USER }} -p ${{ secrets.ACR_KEY }} ${{ env.registry }}
         
       - name: Docker build
         run: docker build -t ${{ env.registry }}/${{ env.repository }}:${{ github.run_number }} --build-arg build_version=${{ github.run_number }} ${{ env.docker_path }}
