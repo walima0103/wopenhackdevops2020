@@ -1,15 +1,22 @@
 name: apis-poi-ci
 env:
   build_name: apis-poi-ci
+  registry: openhackdu442g69acr.azurecr.io
+  repository: devopsoh/api-poi
+  docker_path: apis/poi/web
 
 on:
   push:
     branches: [ master ]
-    paths: apis/poi/**
+    paths:
+      - apis/poi/**
+      - .github/workflows/apis-poi-ci.yml
         
   pull_request:
     branches: [ master ]
-    paths: apis/poi/**
+    paths:
+      - apis/poi/**
+      - .github/workflows/apis-poi-ci.yml
 
 jobs:
   apis-poi-ci-build:
@@ -42,3 +49,21 @@ jobs:
             title: "${{ env.build_name }} Workflow ${{ github.run_number }} Failed! ",
             body: body
           });
+          
+  apis-poi-cd:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: [apis-poi-ci-build]
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Docker login
+        run: docker login ${{ env.registry }} -u ${{ secrets.ACR_USER }} -p ${{ secrets.ACR_KEY }}
+        
+      - name: Docker build
+        run: docker build -t ${{ env.registry }}/${{ env.repository }}:${{ github.run_number }} --build-arg build_version=${{ github.run_number }} {{ env.docker_path }}
+        
+      - name: Docker push
+        run: docker push ${{ env.registry }}/{{ env.repository }}:${{ github.run_number }}
+  
