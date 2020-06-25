@@ -16,6 +16,8 @@ namespace poi
         {
             Bug
 
+            Bug2
+
             BuildWebHost(args).Run();
 
         }
