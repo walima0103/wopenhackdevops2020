@@ -14,9 +14,9 @@ namespace poi
     {
         public static void Main(string[] args)
         {
-            Bug
+            //Bug
 
-            Bug2
+            //Bug2
 
             BuildWebHost(args).Run();
 
