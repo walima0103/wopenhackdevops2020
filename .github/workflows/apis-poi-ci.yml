@@ -67,6 +67,38 @@ jobs:
       - name: Docker push
         run: docker push ${{ env.registry }}/${{ env.repository }}:${{ github.run_number }}
       
+      - name: Azure Login
+        uses: Azure/login@v1.1
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # Set this value to true to enable Azure PowerShell Login in addition to Az CLI login
+          # enable-AzPSSession: # optional
+      
+      - name: Azure WebApp Deploy
+        uses: Azure/webapps-deploy@v2
+        with:
+          # Name of the Azure Web App
+          app-name: openhackdu442g69poi
+    
+          # Applies to Web App only: Publish profile (*.publishsettings) file contents with Web Deploy secrets
+          # publish-profile: # optional
+    
+          # Enter an existing Slot other than the Production slot
+          slot-name: staging # optional, default is production
+
+          # Applies to Web App only: Path to package or folder. *.zip, *.war, *.jar or a folder to deploy
+          # package: # optional, default is .
+    
+          # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
+          images: ${{ env.registry }}/${{ env.repository }}:${{ github.run_number }}
+    
+          # Applies to Web App Containers only: Path of the Docker-Compose file. Should be a fully qualified path or relative to the default working directory. Required for multi-container scenario
+          # configuration-file: # optional
+    
+          # Enter the start up command. For ex. dotnet run or dotnet run
+          # startup-command: # optional
+      
       - uses: actions/github-script@0.9.0
         if: failure()
         with:
