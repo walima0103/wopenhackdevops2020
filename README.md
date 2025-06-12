@@ -33,4 +33,4 @@ It is useful but not required to have a basic knowledge of the following topics:
 
 The provisioning of this environment for proctors can be found in the [DevOps Openhack Proctor](https://github.com/Azure-Samples/openhack-devops-proctor) Github repository.
 
-Alteração no workshop do github da caixa.
+Change made to the workshop from Caixa's GitHub.
